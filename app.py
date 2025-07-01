@@ -34,7 +34,7 @@ if uploaded_file.name.endswith('.csv'):
 
     leak_column = df.columns[-3]  # Or hardcode the name like "State Office"
     leak_counts = df[leak_column].dropna().value_counts().reset_index()
-    leak_counts.columns = ['Leak', 'Total Count']
+    leak_counts.columns = ['leak', 'Total Count']
     figs = px.bar(leak_counts, x='leak', y='Total Count', title='Count per leak', text='Total Count')
     figs.update_layout(xaxis_tickangle=-45)
     st.plotly_chart(figs, use_container_width=True)
