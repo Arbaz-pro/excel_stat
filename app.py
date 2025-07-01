@@ -25,18 +25,59 @@ if uploaded_file.name.endswith('.csv'):
     st.subheader("Data Preview")
     st.dataframe(df.head())
     st.subheader("complaint count state office wise")
-    so_column = df.columns[-1]  # Or hardcode the name like "State Office"
+    so_column = df.columns[-1] 
     so_counts = df[so_column].dropna().value_counts().reset_index()
     so_counts.columns = ['State Office', 'Total Count']
     fig = px.bar(so_counts, x='State Office', y='Total Count', title='Count per State Office', text='Total Count')
     fig.update_layout(xaxis_tickangle=-45)
     st.plotly_chart(fig, use_container_width=True)
 
-    leak_column = df.columns[-3]  # Or hardcode the name like "State Office"
+    leak_column = df.columns[-3]  
     leak_counts = df[leak_column].dropna().value_counts().reset_index()
     leak_counts.columns = ['leak', 'Total Count']
     figs = px.bar(leak_counts, x='leak', y='Total Count', title='Count per leak', text='Total Count')
     figs.update_layout(xaxis_tickangle=-45)
     st.plotly_chart(figs, use_container_width=True)
+
+    st.subheader("🎛️ Filter by State Office, Plant, and Leak Type")
+
+    # Replace these with actual column names from your dataset
+    so_col = df.columns[-1]             # State Office (e.g., 'Gujarat SO-LPG')
+    plant_col = df.columns[2]           # Plant (e.g., 'Patna BP-IOC')
+    leak_col = 'ing'                    # Leak Type column (based on your screenshot)
+    
+    # Dropdown filters
+    selected_so = st.selectbox("Select State Office", options=['All'] + sorted(df[so_col].dropna().unique().tolist()))
+    selected_plant = st.selectbox("Select Plant", options=['All'] + sorted(df[plant_col].dropna().unique().tolist()))
+    selected_leak = st.selectbox("Select Leak Type", options=['All'] + sorted(df[leak_col].dropna().unique().tolist()))
+    
+    # Apply filters
+    filtered_df = df.copy()
+    
+    if selected_so != 'All':
+        filtered_df = filtered_df[filtered_df[so_col] == selected_so]
+    
+    if selected_plant != 'All':
+        filtered_df = filtered_df[filtered_df[plant_col] == selected_plant]
+    
+    if selected_leak != 'All':
+        filtered_df = filtered_df[filtered_df[leak_col] == selected_leak]
+    
+    # Show filtered data
+    st.subheader("📋 Filtered Results")
+    st.dataframe(filtered_df)
+    
+    # Show count of leak types within this filtered data
+    if not filtered_df.empty:
+        leak_counts = filtered_df[leak_col].value_counts().reset_index()
+        leak_counts.columns = ['Leak Type', 'Count']
+    
+        st.subheader("📊 Leak Type Count (Filtered)")
+        fig = px.bar(leak_counts, x='Leak Type', y='Count', text='Count')
+        fig.update_layout(xaxis_tickangle=-45)
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.warning("No data matches your selection.")
+    
 else:
     st.info("Please upload a file to start analysis.")
