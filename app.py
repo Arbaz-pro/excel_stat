@@ -51,7 +51,7 @@ if uploaded_file.name.endswith('.csv'):
     selected_plant = st.selectbox("Select Plant", options=['All'] + sorted(df[plant_col].dropna().unique().tolist()))
     selected_leak = st.selectbox("Select Leak Type", options=['All'] + sorted(df[leak_col].dropna().unique().tolist()))
 
-    st.print(selected_plant)
+    st.print(df[plant_col])
     
 else:
     st.info("Please upload a file to start analysis.")
