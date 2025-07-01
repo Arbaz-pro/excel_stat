@@ -29,5 +29,8 @@ if uploaded_file.name.endswith('.csv'):
     so_counts = df[so_column].dropna().value_counts().reset_index()
     so_counts.columns = ['State Office', 'Total Count']
     st.dataframe(so_counts)
+    fig = px.bar(so_counts, x='State Office', y='Total Count', title='Count per State Office', text='Total Count')
+    fig.update_layout(xaxis_tickangle=-45)
+    st.plotly_chart(fig, use_container_width=True)
 else:
     st.info("Please upload a file to start analysis.")
