@@ -53,12 +53,13 @@ if uploaded_file.name.endswith('.csv'):
     
     # Apply filters
     filtered_df = df.copy()
+    if selected_plant != 'All':
+        filtered_df = filtered_df[filtered_df[plant_col] == selected_plant]
     
     if selected_so != 'All':
         filtered_df = filtered_df[filtered_df[so_col] == selected_so]
     
-    if selected_plant != 'All':
-        filtered_df = filtered_df[filtered_df[plant_col] == selected_plant]
+    
     
     if selected_leak != 'All':
         filtered_df = filtered_df[filtered_df[leak_col] == selected_leak]
