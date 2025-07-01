@@ -6,7 +6,7 @@ import plotly.express as px
 
 st.set_page_config(page_title="Excel Data Statistical Analyzer", layout="wide")
 
-st.title("📊 Excel Data Statistical Analyzer")
+st.title(" Excel Data Statistical Analyzer")
 
 uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
 
@@ -22,15 +22,12 @@ if uploaded_file.name.endswith('.csv'):
     else:
         df = pd.read_excel(uploaded_file)
 
-    st.subheader("📄 Data Preview")
+    st.subheader("Data Preview")
     st.dataframe(df.head())
-
-    st.subheader("📈 Numeric Columns Distribution")
-    numeric_cols = df.select_dtypes(include='number').columns.tolist()
-    for col in numeric_cols:
-        fig = px.histogram(df, x=col, nbins=30, title=f"Distribution of {col}")
-        st.plotly_chart(fig, use_container_width=True)
-
-   
+    st.subheader("complaint count state office wise")
+    so_column = df.columns[-1]  # Or hardcode the name like "State Office"
+    so_counts = df[so_column].dropna().value_counts().reset_index()
+    so_counts.columns = ['State Office', 'Total Count']
+    st.dataframe(so_counts)
 else:
     st.info("Please upload a file to start analysis.")
