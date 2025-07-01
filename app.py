@@ -28,8 +28,14 @@ if uploaded_file.name.endswith('.csv'):
     so_column = df.columns[-1]  # Or hardcode the name like "State Office"
     so_counts = df[so_column].dropna().value_counts().reset_index()
     so_counts.columns = ['State Office', 'Total Count']
-    st.dataframe(so_counts)
     fig = px.bar(so_counts, x='State Office', y='Total Count', title='Count per State Office', text='Total Count')
+    fig.update_layout(xaxis_tickangle=-45)
+    st.plotly_chart(fig, use_container_width=True)
+
+    leak_column = df.columns[-3]  # Or hardcode the name like "State Office"
+    leak_counts = df[leak_column].dropna().value_counts().reset_index()
+    leak_counts.columns = ['Leak', 'Total Count']
+    fig = px.bar(leak_counts, x='leak', y='Total Count', title='Count per leak', text='Total Count')
     fig.update_layout(xaxis_tickangle=-45)
     st.plotly_chart(fig, use_container_width=True)
 else:
