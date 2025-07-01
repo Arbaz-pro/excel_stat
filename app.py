@@ -50,35 +50,8 @@ if uploaded_file.name.endswith('.csv'):
     selected_so = st.selectbox("Select State Office", options=['All'] + sorted(df[so_col].dropna().unique().tolist()))
     selected_plant = st.selectbox("Select Plant", options=['All'] + sorted(df[plant_col].dropna().unique().tolist()))
     selected_leak = st.selectbox("Select Leak Type", options=['All'] + sorted(df[leak_col].dropna().unique().tolist()))
-    
-    # Apply filters
-    filtered_df = df.copy()
-    if selected_plant != 'All':
-        filtered_df = filtered_df[filtered_df[plant_col] == selected_plant]
-    
-    if selected_so != 'All':
-        filtered_df = filtered_df[filtered_df[so_col] == selected_so]
-    
-    
-    
-    if selected_leak != 'All':
-        filtered_df = filtered_df[filtered_df[leak_col] == selected_leak]
-    
-    # Show filtered data
-    st.subheader("📋 Filtered Results")
-    st.dataframe(filtered_df)
-    
-    # Show count of leak types within this filtered data
-    if not filtered_df.empty:
-        leak_counts = filtered_df[leak_col].value_counts().reset_index()
-        leak_counts.columns = ['Leak Type', 'Count']
-    
-        st.subheader("📊 Leak Type Count (Filtered)")
-        fig = px.bar(leak_counts, x='Leak Type', y='Count', text='Count')
-        fig.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.warning("No data matches your selection.")
+
+    st.dataframe(selected_plant)
     
 else:
     st.info("Please upload a file to start analysis.")
