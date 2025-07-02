@@ -32,7 +32,6 @@ if uploaded_file:
         st.dataframe(fil_df)
     tab1,=st.tabs(["Filter data"])
     with tab1:
-        st.subheader("test")
-        st.write("test","test")
+        st.dataframe(fil_df)
 else:
     st.info("Please upload a file to start analysis.")
