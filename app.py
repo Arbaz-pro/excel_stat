@@ -21,8 +21,8 @@ if uploaded_file.name.endswith('.csv'):
         st.stop()
     else:
         df = pd.read_excel(uploaded_file)
-    df.rename(cloumns={"Mechanic ‘s response on leakage type"
-:"Leak Type","Plant Name":,"Plant","SO":"State Office"}.inplace=True)
+    df.rename(clumns={"Mechanic ‘s response on leakage type"
+:"Leak Type","Plant Name":"Plant","SO":"State Office"}.inplace=True)
 
     st.subheader("Data Preview")
     st.dataframe(df.head(15))
