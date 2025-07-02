@@ -20,8 +20,11 @@ if uploaded_file:
     ndf=df[["Distributor Name","Distributor Code","Plant","Territory","Leak Type","State Office"]]
     st.write("columns",ndf.columns)
     st.sidebar.header("Filter")
-    sel_state=st.sidebar.multiselect("State Office",df["State Office"].dropna().unique())
-    st.write("State",df["State Office"].unique())
+    sel_state=st.sidebar.multiselect("State Office",ndf["State Office"].dropna().unique())
+    fil_df=ndf.copy()
+    if sel_state:
+        fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
+    st.write("State",sel_state)
 else:
 
     st.info("Please upload a file to start analysis.")
