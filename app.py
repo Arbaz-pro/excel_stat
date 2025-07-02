@@ -19,6 +19,7 @@ if uploaded_file:
 }, inplace=True)
     ndf=df[["Distributor Name","Distributor Code","Plant","Territory","Leak Type","State Office"]]
     st.write("columns",ndf.columns)
+    st.sidebar.header("Filter")
     sel_state=st.sidebar.multiselect("State",df["State Office"].dropna().unique())
     st.write("State",sel_state)
 else:
