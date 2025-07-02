@@ -26,7 +26,7 @@ if uploaded_file.name.endswith('.csv'):
     "Plant Name": "Plant",
     "SO": "State Office"
 }, inplace=True)
-st.write("columns",df.columns)
+    st.write("columns",df.columns)
     
 else:
     st.info("Please upload a file to start analysis.")
