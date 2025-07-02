@@ -21,7 +21,7 @@ if uploaded_file:
     st.write("columns",ndf.columns)
     st.sidebar.header("Filter")
     sel_state=st.sidebar.multiselect("State Office",df["State Office"].dropna().unique())
-    st.write("State",sel_state)
+    st.write("State",df["State Office"].unique())
 else:
 
     st.info("Please upload a file to start analysis.")
