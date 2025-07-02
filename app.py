@@ -26,9 +26,7 @@ if uploaded_file.name.endswith('.csv'):
     "Plant Name": "Plant",
     "SO": "State Office"
 }, inplace=True)
-
-    st.subheader("Data Preview")
-    st.dataframe(df.head(15))
+st.write("columns",df.columns)
     
 else:
     st.info("Please upload a file to start analysis.")
