@@ -23,7 +23,7 @@ if uploaded_file.name.endswith('.csv'):
         df = pd.read_excel(uploaded_file)
 
     st.subheader("Data Preview")
-    st.daraframe(df.head(10))
+    st.daraframe(df.head())
     
 else:
     st.info("Please upload a file to start analysis.")
