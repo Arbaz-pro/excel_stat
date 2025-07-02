@@ -25,5 +25,5 @@ if uploaded_file.name.endswith('.csv'):
     st.subheader("Data Preview")
     
     
- else:
+else:
     st.info("Please upload a file to start analysis.")
