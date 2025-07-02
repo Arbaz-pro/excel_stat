@@ -27,7 +27,7 @@ if uploaded_file:
         sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
         if sel_plant:
            fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
-        st.write("Selected Plants:", sel_plant if 'sel_plant' in locals() else [])
+        
     st.write("State",sel_state)
 else:
 
