@@ -17,7 +17,7 @@ if uploaded_file:
     "Plant Name": "Plant",
     "SO": "State Office"
 }, inplace=True)
-    st.write("columns",df.columns[-2])
+    st.write("columns",df.columns[20])
     
 else:
     st.info("Please upload a file to start analysis.")
