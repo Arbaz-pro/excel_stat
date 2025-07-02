@@ -29,7 +29,7 @@ if uploaded_file:
         sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique())
         if sel_leak:
            fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
-        st.dataframe(fil_df)
+      
     tab1,=st.tabs(["Filter data"])
     with tab1:
         st.dataframe(fil_df)
