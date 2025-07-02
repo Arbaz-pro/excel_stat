@@ -25,7 +25,7 @@ if uploaded_file:
     if sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         sel_plant=st.sidebar.multiselect("Plant",ndf["Plant"].dropna().unique())
-        if sel_plan:
+        if sel_plant:
            fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
     st.write("State",sel_state)
 else:
