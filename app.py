@@ -30,7 +30,7 @@ if uploaded_file:
         if sel_leak:
            fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
         st.dataframe(fil_df)
-    tab1=tab2=st.tab("Filter data","Chart")
+    tab1=tab2=st.tab(["Filter data","Chart"])
     with tab1:
         st.dataframe(fil_df)
 else:
