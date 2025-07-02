@@ -10,7 +10,7 @@ st.title(" Excel Data Statistical Analyzer")
 
 uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
 
-if uploaded_file.name.endswith('.csv'):
+if uploaded_file:
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
     df.rename(columns={
     "Mechanic ‘s response on leakage type": "Leak Type",
