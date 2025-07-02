@@ -18,7 +18,7 @@ if uploaded_file:
     "SO": "State Office"
 }, inplace=True)
     ndf=df[["Distributor Name","Distributor Code","Plant","Territory","Leak Type","State Office"]]
-    st.write("columns",ndf.columns())
+    st.write("columns",df.columns())
     
 else:
     st.info("Please upload a file to start analysis.")
