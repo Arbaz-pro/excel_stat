@@ -30,7 +30,6 @@ if uploaded_file:
         if sel_leak:
            fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
         st.dataframe(fil_df)
-    st.write("State",sel_state)
 else:
 
     st.info("Please upload a file to start analysis.")
