@@ -20,7 +20,7 @@ if uploaded_file:
     ndf=df[["Distributor Name","Distributor Code","Plant","Territory","Leak Type","State Office"]]
     st.write("columns",ndf.columns)
     st.sidebar.header("Filter")
-    sel_state=st.sidebar.multiselect("State",df[-1].dropna().unique())
+    sel_state=st.sidebar.multiselect("State Office",df["State Office"].dropna().unique())
     st.write("State",sel_state)
 else:
 
