@@ -29,7 +29,7 @@ if uploaded_file:
            fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
         sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique())
         if sel_leak:
-           fil_df=fil_df[fil_df[""].isin(sel_plant)] 
+           fil_df=fil_df[fil_df["Leak Type"].isin(sel_plant)] 
     st.write("State",sel_state)
 else:
 
