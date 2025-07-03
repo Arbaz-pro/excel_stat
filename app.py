@@ -140,6 +140,14 @@ elif st.session_state.page == "analyze":
             text_auto=True,
             color_discrete_sequence=color_palette
             )
+            fig.update_traces(
+            textfont=dict(
+                size=16,
+                color='black',
+                family='Arial Black'
+            ),
+            textposition='auto'
+            )
             bar_fig.update_layout(xaxis_tickangle=-45,barmode="stack")
             st.plotly_chart(bar_fig, use_container_width=True)
         else:               
