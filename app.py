@@ -35,9 +35,9 @@ if uploaded_file:
         fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
       
     tab1,tab2,tab3=st.tabs(["Filter data","Charts","Group by"])
-    with tab1:
-        st.dataframe(fil_df)
     with tab2:
+        st.dataframe(fil_df)
+    with tab1:
         if "ALL" in sel_state:
             st.subheader("State Office–wise Total Complaints")
             state_counts = fil_df["State Office"].value_counts().reset_index()
