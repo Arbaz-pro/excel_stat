@@ -56,8 +56,7 @@ elif st.session_state.page == "analyze":
             sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
             if sel_plant:
                fil_df=fil_df[fil_df["Plant"].isin(sel_plant)]        
-    sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),)
-    with col3:
+       with col3:
         sel_leak = st.multiselect("Leak Type", sorted(fil_df["Leak Type"].dropna().unique()))
         if sel_leak:
             fil_df = fil_df[fil_df["Leak Type"].isin(sel_leak)]  
