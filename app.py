@@ -8,9 +8,19 @@ st.set_page_config(page_title="Excel Data Statistical Analyzer", layout="wide")
 
 st.markdown("###1906 Complaint Summary")
 
-uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
+if "file_uploaded" not in st.session_state:
+    st.session_state["file_uploaded"] = False
 
-if uploaded_file:
+if not st.session_state["file_uploaded"]:
+    uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
+    if uploaded_file:
+        st.session_state["file_uploaded"] = True
+        st.session_state["uploaded_file"] = uploaded_file
+else:
+    uploaded_file = st.session_state["uploaded_file"]
+    st.success("✅ File uploaded successfully.")
+    
+if st.session_state["file_uploaded"]:
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
     df.rename(columns={
     df.columns[20]: "Leak Type",
