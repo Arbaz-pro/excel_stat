@@ -30,20 +30,20 @@ if uploaded_file:
         if sel_plant:
            fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
 
-            plant_count=fil_df["Plant Name"].value_counts().reset_index()
-            plant_count.columns = ["Plant", "Total Complaints"]
+         plant_count=fil_df["Plant Name"].value_counts().reset_index()
+         plant_count.columns = ["Plant", "Total Complaints"]
                         
-            bar_fig = px.bar(
-            plant_count[:15],
-            x="Distributor Name",
-            y="Total Complaints",
-            title="Total Complaints by Plant",
-            text="Total Complaints",
-            color="Total Complaints",
-            color_continuous_scale="blues"
-            )
-            bar_fig.update_layout(xaxis_tickangle=-45)
-            st.plotly_chart(bar_fig, use_container_width=True)
+         bar_fig = px.bar(
+         plant_count[:15],
+         x="Distributor Name",
+         y="Total Complaints",
+         title="Total Complaints by Plant",
+         text="Total Complaints",
+         color="Total Complaints",
+         color_continuous_scale="blues"
+         )
+         bar_fig.update_layout(xaxis_tickangle=-45)
+         st.plotly_chart(bar_fig, use_container_width=True)   
     
     sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),)
     if sel_leak:
