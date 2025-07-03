@@ -115,17 +115,29 @@ elif st.session_state.page == "analyze":
         
         dist_count=fil_df["Distributor Name"].value_counts().reset_index()
         dist_count.columns = ["Distributor Name", "Total Complaints"]
-        
-        bar_fig = px.bar(
-        dist_count[:15],
+
+        grouped = (
+        fil_df.groupby(["Distributor Name", "Leak Type"])
+        .size()
+        .reset_index(name="Total Complaints")
+        )
+        top_dists = (
+        grouped.groupby("Distributor Name")["Total Complaints"]
+        .sum()
+        .nlargest(15)
+        .index
+        )
+        grouped = grouped[grouped["Distributor Name"].isin(top_distributors)]
+
+        fig = px.bar(
+        grouped,
         x="Distributor Name",
         y="Total Complaints",
-        title="Top 15 Complaints by Distributors",
-        text="Total Complaints",
-        color="Total Complaints",
-        color_continuous_scale="blues"
+        color="Leak Type",
+        title="Top 15 Distributors by Complaints, Split by Leak Type",
+        text_auto=True
         )
-        bar_fig.update_layout(xaxis_tickangle=-45)
+        bar_fig.update_layout(xaxis_tickangle=-45,barmode="stack")
         st.plotly_chart(bar_fig, use_container_width=True)
         
     with tab2:
