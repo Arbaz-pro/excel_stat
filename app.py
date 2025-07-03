@@ -130,7 +130,7 @@ elif st.session_state.page == "analyze":
             .index
             )
             grouped = grouped[grouped["Distributor Name"].isin(top_dists)]
-    
+            color_palette = ["#1f77b4", "#4c72b0", "#6baed6", "#9ecae1", "#b2df8a", "#a6cee3", "#fdbf6f", "#c7e9c0", "#fb9a99", "#d9d9d9"]
             bar_fig = px.bar(
             grouped,
             x="Distributor Name",
@@ -138,6 +138,7 @@ elif st.session_state.page == "analyze":
             color="Leak Type",
             title="Top 15 Distributors by Complaints, Split by Leak Type",
             text_auto=True
+            color_discrete_sequence=color_palette
             )
             bar_fig.update_layout(xaxis_tickangle=-45,barmode="stack")
             st.plotly_chart(bar_fig, use_container_width=True)
