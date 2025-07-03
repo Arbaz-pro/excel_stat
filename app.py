@@ -130,5 +130,3 @@ else:
     
                 st.subheader("Grouped Complaint Summary")
                 st.write(grouped_df)
-else:
-    st.info("Please upload a file to start analysis.")
