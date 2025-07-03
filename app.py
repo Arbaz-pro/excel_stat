@@ -49,6 +49,19 @@ if uploaded_file:
         bar_fig.update_layout(xaxis_tickangle=-45)
         st.plotly_chart(bar_fig, use_container_width=True)
         dist_count=fil_df["Distributor Name"].value_counts().reset_index()
+        state_counts.columns = ["Distributor Name", "Total Complaints"]
         st.write("Distributors",dist_count)
+        
+        bar_fig = px.bar(
+        dist_counts[:15],
+        x="Distributor Name",
+        y="Total Complaints",
+        title="Top 15 Complaints by Distributors",
+        text="Total Complaints",
+        color="Total Complaints",
+        color_continuous_scale="blues"
+        )
+        bar_fig.update_layout(xaxis_tickangle=-45)
+        st.plotly_chart(bar_fig, use_container_width=True)
 else:
     st.info("Please upload a file to start analysis.")
