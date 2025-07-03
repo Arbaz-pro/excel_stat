@@ -79,7 +79,7 @@ if uploaded_file:
 
         if all(col in fil_df.columns for col in group_cols):
             grouped_df = (
-                df.groupby(group_cols)["Leak Type"].size().reset_index())
+                df.groupby(group_cols)["Leak Type"].size().reset_index(name="Count"))
 
             st.subheader("Grouped Complaint Summary")
             st.write(grouped_df)
