@@ -22,7 +22,7 @@ if uploaded_file:
     set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
     sel_state=st.sidebar.multiselect("State Office",set_options,default="ALL")
     fil_df=ndf.copy()
-    if "ALL" not in sel_state:
+    if sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
         if sel_plant:
