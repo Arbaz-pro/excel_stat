@@ -38,7 +38,6 @@ elif st.session_state.page == "analyze":
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
     st.markdown("### 1906 Complaint Summary")
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
-    st.sidebar.header("Filter")
     set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
     fil_df=ndf.copy()
     
