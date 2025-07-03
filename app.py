@@ -60,8 +60,8 @@ elif st.session_state.page == "analyze":
     with col3:
         st.write("test","test")
         sel_leak = st.multiselect("Leak Type", sorted(fil_df["Leak Type"].dropna().unique()))
-            if sel_leak:
-                fil_df = fil_df[fil_df["Leak Type"].isin(sel_leak)]  
+        if sel_leak:
+            fil_df = fil_df[fil_df["Leak Type"].isin(sel_leak)]  
                 
     tab1,tab2,tab3=st.tabs(["Charts","Filter data","Group by"])
     
