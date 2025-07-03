@@ -137,7 +137,7 @@ elif st.session_state.page == "analyze":
             y="Total Complaints",
             color="Leak Type",
             title="Top 15 Distributors by Complaints, Split by Leak Type",
-            text_auto=True
+            text_auto=True,
             color_discrete_sequence=color_palette
             )
             bar_fig.update_layout(xaxis_tickangle=-45,barmode="stack")
