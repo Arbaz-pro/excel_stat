@@ -87,7 +87,6 @@ if uploaded_file:
         st.plotly_chart(bar_fig, use_container_width=True)
         
     with tab2:
-        st.write("test",test)
         st.dataframe(fil_df)
         
         
