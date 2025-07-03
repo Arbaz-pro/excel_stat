@@ -28,21 +28,7 @@ if uploaded_file:
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
         if sel_plant:
-           fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
-        plant_count=fil_df["Plant"].value_counts().reset_index()
-        plant_count.columns = ["Plant", "Total Complaints"]
-                        
-        bar_fig = px.bar(
-        plant_count,
-        x="Plant",
-        y="Total Complaints",
-        title="Total Complaints by Plant",
-        text="Total Complaints",
-        color="Total Complaints",
-        color_continuous_scale="blues"
-        )
-        bar_fig.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(bar_fig, use_container_width=True)   
+           fil_df=fil_df[fil_df["Plant"].isin(sel_plant)]        
     
     sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),)
     if sel_leak:
@@ -52,21 +38,38 @@ if uploaded_file:
     with tab1:
         st.dataframe(fil_df)
     with tab2:
-        st.subheader("State Office–wise Total Complaints")
-        state_counts = fil_df["State Office"].value_counts().reset_index()
-        state_counts.columns = ["State Office", "Total Complaints"]
-        
-        bar_fig = px.bar(
-        state_counts,
-        x="State Office",
-        y="Total Complaints",
-        title="Total Complaints by State Office",
-        text="Total Complaints",
-        color="Total Complaints",
-        color_continuous_scale="blues"
-        )
-        bar_fig.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(bar_fig, use_container_width=True)
+        if "ALL" in sel_state::
+            st.subheader("State Office–wise Total Complaints")
+            state_counts = fil_df["State Office"].value_counts().reset_index()
+            state_counts.columns = ["State Office", "Total Complaints"]
+            
+            bar_fig = px.bar(
+            state_counts,
+            x="State Office",
+            y="Total Complaints",
+            title="Total Complaints by State Office",
+            text="Total Complaints",
+            color="Total Complaints",
+            color_continuous_scale="blues"
+            )
+            bar_fig.update_layout(xaxis_tickangle=-45)
+            st.plotly_chart(bar_fig, use_container_width=True)
+        else :
+            st.subheader("Plant–wise Total Complaints")
+            plant_count=fil_df["Plant"].value_counts().reset_index()
+            plant_count.columns = ["Plant", "Total Complaints"]
+                            
+            bar_fig = px.bar(
+            plant_count,
+            x="Plant",
+            y="Total Complaints",
+            title="Total Complaints by Plant",
+            text="Total Complaints",
+            color="Total Complaints",
+            color_continuous_scale="blues"
+            )
+            bar_fig.update_layout(xaxis_tickangle=-45)
+            st.plotly_chart(bar_fig, use_container_width=True) 
         
         dist_count=fil_df["Distributor Name"].value_counts().reset_index()
         dist_count.columns = ["Distributor Name", "Total Complaints"]
