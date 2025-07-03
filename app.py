@@ -69,10 +69,26 @@ if uploaded_file:
             )
             bar_fig.update_layout(xaxis_tickangle=-45)
             st.plotly_chart(bar_fig, use_container_width=True) 
+
+            if sel_plant:
+                st.subheader("Leak–wise Total Complaints")
+                leak_c=fil_df["Leak Type"].value_counts().reset_index()
+                leak_c.columns = ["Leak Type", "Total Complaints"]
+                                
+                bar_fig = px.bar(
+                leak_c,
+                x="Leak Type",
+                y="Total Complaints",
+                title="Total Complaints by Leak Type",
+                text="Total Complaints",
+                color="Total Complaints",
+                color_continuous_scale="blues"
+                )
+                bar_fig.update_layout(xaxis_tickangle=-45)
+                st.plotly_chart(bar_fig, use_container_width=True)
         
         dist_count=fil_df["Distributor Name"].value_counts().reset_index()
         dist_count.columns = ["Distributor Name", "Total Complaints"]
-        st.write("Distributors",dist_count)
         
         bar_fig = px.bar(
         dist_count[:15],
