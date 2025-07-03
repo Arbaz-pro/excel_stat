@@ -6,7 +6,7 @@ import plotly.express as px
 
 st.set_page_config(page_title="Excel Data Statistical Analyzer", layout="wide")
 
-st.markdown("###1906 Complaint Summary")
+st.markdown("### 1906 Complaint Summary")
 
 if "file_uploaded" not in st.session_state:
     st.session_state["file_uploaded"] = False
