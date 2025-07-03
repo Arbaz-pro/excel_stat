@@ -40,10 +40,8 @@ elif st.session_state.page == "analyze":
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
     st.sidebar.header("Filter")
     set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
-    sel_state=st.sidebar.multiselect("State Office",set_options,default="ALL")
     fil_df=ndf.copy()
-
-    st.markdown("### Filter Data")
+    
     col1, col2, col3 = st.columns(3)
     with col1:
         state_options = ["ALL"] + sorted(ndf["State Office"].dropna().unique())
@@ -54,14 +52,16 @@ elif st.session_state.page == "analyze":
         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
     else :
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
-        sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
-        if sel_plant:
-           fil_df=fil_df[fil_df["Plant"].isin(sel_plant)]        
-    
+        with col2:
+            sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
+            if sel_plant:
+               fil_df=fil_df[fil_df["Plant"].isin(sel_plant)]        
     sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),)
-    if sel_leak:
-        fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
-      
+    with col3:
+        sel_leak = st.multiselect("Leak Type", sorted(fil_df["Leak Type"].dropna().unique()))
+            if sel_leak:
+                fil_df = fil_df[fil_df["Leak Type"].isin(sel_leak)]  
+                
     tab1,tab2,tab3=st.tabs(["Charts","Filter data","Group by"])
     
     with tab1:
