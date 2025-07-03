@@ -48,5 +48,7 @@ if uploaded_file:
         )
         bar_fig.update_layout(xaxis_tickangle=-45)
         st.plotly_chart(bar_fig, use_container_width=True)
+        dist_count=fil_df["Distributor Name"].value_counts(15).reset_index()
+        st.write("Distributors",dist_count)
 else:
     st.info("Please upload a file to start analysis.")
