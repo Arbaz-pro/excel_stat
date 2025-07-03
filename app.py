@@ -32,7 +32,7 @@ if st.session_state.page == "upload":
         
         st.session_state.df = df
         st.session_state.page = "analyze"
-        st.experimental_rerun()
+        st.rerun()
 elif st.session_state.page == "analyze":
     df = st.session_state.df
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
