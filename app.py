@@ -18,6 +18,7 @@ if st.session_state.page == "upload":
     st.title("📄 Upload Excel or CSV File")
     uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
     if uploaded_file:
+        file_ext = os.path.splitext(uploaded_file.name)[1]
         if file_ext == ".csv":
             df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
         else:
