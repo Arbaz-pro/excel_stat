@@ -33,7 +33,7 @@ if uploaded_file:
         plant_count.columns = ["Plant", "Total Complaints"]
                         
         bar_fig = px.bar(
-        plant_count[:15],
+        plant_count,
         x="Distributor Name",
         y="Total Complaints",
         title="Total Complaints by Plant",
