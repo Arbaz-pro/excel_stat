@@ -53,7 +53,7 @@ if uploaded_file:
         st.write("Distributors",dist_count)
         
         bar_fig = px.bar(
-        dist_counts[:15],
+        dist_count[:15],
         x="Distributor Name",
         y="Total Complaints",
         title="Top 15 Complaints by Distributors",
