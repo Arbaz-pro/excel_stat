@@ -19,14 +19,14 @@ if uploaded_file:
 }, inplace=True)
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
     st.sidebar.header("Filter")
-    sel_state=st.sidebar.multiselect("State Office",ndf["State Office"].dropna().unique())
+    sel_state=st.sidebar.multiselect("State Office",["ALL"] + ndf["State Office"].dropna().unique())
     fil_df=ndf.copy()
     if sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
         if sel_plant:
            fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
-        sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique())
+        sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),default="ALL")
         if sel_leak:
            fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
       
