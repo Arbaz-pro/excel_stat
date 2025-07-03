@@ -99,6 +99,7 @@ elif st.session_state.page == "analyze":
             bar_fig.update_layout(xaxis_tickangle=-45)
             st.plotly_chart(bar_fig, use_container_width=True)
         else :  
+            sel_state.remove("ALL")
             dist_count=fil_df["Distributor Name"].value_counts().reset_index()
             dist_count.columns = ["Distributor Name", "Total Complaints"] 
             if sel_plant:
