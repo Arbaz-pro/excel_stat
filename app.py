@@ -142,7 +142,7 @@ elif st.session_state.page == "analyze":
             )
             fig.update_traces(
             textfont=dict(
-                size=16,
+                size=30,
                 color='black',
                 family='Arial Black'
             ),
