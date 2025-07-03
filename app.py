@@ -42,6 +42,10 @@ elif st.session_state.page == "analyze":
     set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
     sel_state=st.sidebar.multiselect("State Office",set_options,default="ALL")
     fil_df=ndf.copy()
+
+    st.markdown("### Filter Data")
+    col1, col2, col3 = st.columns(3)
+    
     if "ALL" in sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
     else :
