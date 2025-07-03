@@ -20,8 +20,31 @@ else:
     uploaded_file = st.session_state["uploaded_file"]
     st.success("✅ File uploaded successfully.")
     
-    if st.session_state["file_uploaded"]:
+    try:
+        # 🛡️ Read CSV safely
         df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
+
+        # ❗ Check if it's empty
+        if df.empty or df.shape[1] == 0:
+            st.error("⚠️ The uploaded CSV file is empty or invalid.")
+            st.stop()
+
+            # ✅ Rename columns safely
+            df.rename(columns={
+                df.columns[20]: "Leak Type",
+                "Plant Name": "Plant",
+                "SO": "State Office"
+            }, inplace=True)
+    
+            # Now df is safe to use
+    
+        except pd.errors.EmptyDataError:
+            st.error("❌ The uploaded file is empty.")
+            st.stop()
+        except Exception as e:
+            st.error(f"❌ Error reading the file: {str(e)}")
+            st.stop()
+        
         df.rename(columns={
         df.columns[20]: "Leak Type",
         "Plant Name": "Plant",
