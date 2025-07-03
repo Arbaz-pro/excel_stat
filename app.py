@@ -30,8 +30,8 @@ if uploaded_file:
         if sel_plant:
            fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
         sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),)
-        if sel_leak:
-           fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
+    if sel_leak:
+        fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
       
     tab1,tab2,=st.tabs(["Filter data","Charts"])
     with tab1:
