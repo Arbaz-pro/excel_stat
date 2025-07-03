@@ -58,13 +58,13 @@ elif st.session_state.page == "analyze":
     with col1:
         state_options = ["ALL"] + sorted(ndf["State Office"].dropna().unique())
         sel_state = st.multiselect("State Office", state_options, default="ALL")
+        if "ALL" in sel_state and len(sel_state) > 1:
+            sel_state = [s for s in sel_state if s != "ALL"]
 
     fil_df = ndf.copy()
-    if "ALL" == sel_state[0]:
+    if "ALL" in sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
     else :
-        if "ALL" in sel_state and len(sel_state) > 1:
-            sel_state.remove("ALL")
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         with col2:
             sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
