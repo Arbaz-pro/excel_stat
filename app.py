@@ -6,7 +6,7 @@ import plotly.express as px
 
 st.set_page_config(page_title="Excel Data Statistical Analyzer", layout="wide")
 
-st.markdown" Excel Data Statistical Analyzer")
+st.markdown("Excel Data Statistical Analyzer")
 
 uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
 
