@@ -5,18 +5,26 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import os
 
+# Generate app
+
 st.set_page_config(page_title="Excel Data Statistical Analyzer", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "upload"
 
 # Go back button
+
 if st.session_state.page == "analyze":
     if st.button("Go Back"):
         st.session_state.page = "upload"
         st.session_state.df = None
+        
+# upload session
 
 if st.session_state.page == "upload":
     st.title("Upload Excel or CSV File")
+    
+# convert uploaded file into df
+    
     uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
     if uploaded_file:
         file_ext = os.path.splitext(uploaded_file.name)[1]
@@ -24,6 +32,7 @@ if st.session_state.page == "upload":
             df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
         else:
             df = pd.read_excel(uploaded_file)
+# Rename columns
         df.rename(columns={
         df.columns[20]: "Leak Type",
         "Plant Name": "Plant",
@@ -33,6 +42,9 @@ if st.session_state.page == "upload":
         st.session_state.df = df
         st.session_state.page = "analyze"
         st.rerun()
+        
+# change session to analyse
+
 elif st.session_state.page == "analyze":
     df = st.session_state.df
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
@@ -40,7 +52,8 @@ elif st.session_state.page == "analyze":
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
     set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
     fil_df=ndf.copy()
-    
+
+#add dropdowns to filter data
     col1, col2, col3 = st.columns(3)
     with col1:
         state_options = ["ALL"] + sorted(ndf["State Office"].dropna().unique())
@@ -59,10 +72,16 @@ elif st.session_state.page == "analyze":
         sel_leak = st.multiselect("Leak Type", sorted(fil_df["Leak Type"].dropna().unique()))
         if sel_leak:
             fil_df = fil_df[fil_df["Leak Type"].isin(sel_leak)]  
-                
-    tab1,tab2,tab3=st.tabs(["Charts","Filter data","Group by"])
+            
+# add tabs to distribute data
     
+    tab1,tab2,tab3=st.tabs(["Charts","Filter data","Group by"])
+
+# first tab for charts
     with tab1:
+
+# logic to display data as per user selection
+        
         if "ALL" in sel_state:
             st.subheader("State Office–wise Total Complaints")
             state_counts = fil_df["State Office"].value_counts().reset_index()
