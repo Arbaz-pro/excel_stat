@@ -77,7 +77,7 @@ if uploaded_file:
         "Leak Type"
     ]
 
-    if all(col in df.columns for col in group_cols):
+    if all(col in fil_df.columns for col in group_cols):
         grouped_df = (
             df.groupby(group_cols)["Leak Type"]
             .sum()
