@@ -34,7 +34,7 @@ if uploaded_file:
                         
         bar_fig = px.bar(
         plant_count,
-        x="Distributor Name",
+        x="Plant",
         y="Total Complaints",
         title="Total Complaints by Plant",
         text="Total Complaints",
