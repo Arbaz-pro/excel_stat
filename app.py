@@ -51,7 +51,7 @@ if uploaded_file:
         st.plotly_chart(bar_fig, use_container_width=True)
         
         dist_count=fil_df["Distributor Name"].value_counts().reset_index()
-        dist_counts.columns = ["Distributor Name", "Total Complaints"]
+        dist_count.columns = ["Distributor Name", "Total Complaints"]
         st.write("Distributors",dist_count)
         
         bar_fig = px.bar(
