@@ -63,7 +63,8 @@ elif st.session_state.page == "analyze":
     if "ALL" == sel_state[0]:
         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
     else :
-        sel_state.remove("ALL")
+        if "ALL" in sel_state and len(sel_state) > 1:
+            sel_state.remove("ALL")
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         with col2:
             sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
