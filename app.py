@@ -37,5 +37,16 @@ if uploaded_file:
         st.subheader("State Office–wise Total Complaints")
         state_counts = fil_df["State Office"].value_counts().reset_index()
         state_counts.columns = ["State Office", "Total Complaints"]
+        bar_fig = px.bar(
+        state_counts,
+        x="State Office",
+        y="Total Complaints",
+        title="Total Complaints by State Office",
+        text="Total Complaints",
+        color="Total Complaints",
+        color_continuous_scale="blues"
+        )
+        bar_fig.update_layout(xaxis_tickangle=-45)
+        st.plotly_chart(bar_fig, use_container_width=True)
 else:
     st.info("Please upload a file to start analysis.")
