@@ -37,6 +37,7 @@ if uploaded_file:
         st.subheader("State Office–wise Total Complaints")
         state_counts = fil_df["State Office"].value_counts().reset_index()
         state_counts.columns = ["State Office", "Total Complaints"]
+        
         bar_fig = px.bar(
         state_counts,
         x="State Office",
@@ -48,8 +49,9 @@ if uploaded_file:
         )
         bar_fig.update_layout(xaxis_tickangle=-45)
         st.plotly_chart(bar_fig, use_container_width=True)
+        
         dist_count=fil_df["Distributor Name"].value_counts().reset_index()
-        state_counts.columns = ["Distributor Name", "Total Complaints"]
+        dist_counts.columns = ["Distributor Name", "Total Complaints"]
         st.write("Distributors",dist_count)
         
         bar_fig = px.bar(
