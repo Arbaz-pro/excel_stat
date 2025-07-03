@@ -77,14 +77,11 @@ if uploaded_file:
         "Leak Type"
     ]
 
-    if all(col in fil_df.columns for col in group_cols):
-        grouped_df = (
-            df.groupby(group_cols)["Leak Type"]
-            .sum()
-            .reset_index()
-        )
+        if all(col in fil_df.columns for col in group_cols):
+            grouped_df = (
+                df.groupby(group_cols)["Leak Type"].sum().reset_index())
 
-        st.subheader("Grouped Complaint Summary")
-        st.write(grouped_df)
+            st.subheader("Grouped Complaint Summary")
+            st.write(grouped_df)
 else:
     st.info("Please upload a file to start analysis.")
