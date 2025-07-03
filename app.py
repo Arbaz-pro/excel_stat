@@ -82,7 +82,7 @@ elif st.session_state.page == "analyze":
 
 # logic to display data as per user selection
         
-        if "ALL" == sel_state:
+        if "ALL" in sel_state:
             st.subheader("State Office–wise Total Complaints")
             state_counts = fil_df["State Office"].value_counts().reset_index()
             state_counts.columns = ["State Office", "Total Complaints"]
@@ -99,8 +99,6 @@ elif st.session_state.page == "analyze":
             bar_fig.update_layout(xaxis_tickangle=-45)
             st.plotly_chart(bar_fig, use_container_width=True)
         else :
-            if "ALL" in sel_state and len(sel_state) > 1:
-                sel_state.remove("ALL")
             dist_count=fil_df["Distributor Name"].value_counts().reset_index()
             dist_count.columns = ["Distributor Name", "Total Complaints"] 
             if sel_plant:
