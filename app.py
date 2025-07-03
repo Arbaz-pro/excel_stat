@@ -129,7 +129,7 @@ elif st.session_state.page == "analyze":
         )
         grouped = grouped[grouped["Distributor Name"].isin(top_dists)]
 
-        fig = px.bar(
+        bar_fig = px.bar(
         grouped,
         x="Distributor Name",
         y="Total Complaints",
