@@ -33,7 +33,7 @@ if uploaded_file:
     if sel_leak:
         fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
       
-    tab1,tab2,=st.tabs(["Filter data","Charts"])
+    tab1,tab2,tab3=st.tabs(["Filter data","Charts","Group by"])
     with tab1:
         st.dataframe(fil_df)
     with tab2:
@@ -68,5 +68,23 @@ if uploaded_file:
         )
         bar_fig.update_layout(xaxis_tickangle=-45)
         st.plotly_chart(bar_fig, use_container_width=True)
+
+    with tab3:
+        group_cols = [
+        "State Office", 
+        "Plant", 
+        "Distributor Name", 
+        "Leak Type"
+    ]
+
+    if all(col in df.columns for col in group_cols):
+        grouped_df = (
+            df.groupby(group_cols)["Leak Type"]
+            .sum()
+            .reset_index()
+        )
+
+        st.subheader("Grouped Complaint Summary")
+        st.write(grouped_df)
 else:
     st.info("Please upload a file to start analysis.")
