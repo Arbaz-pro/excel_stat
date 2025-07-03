@@ -29,7 +29,7 @@ if uploaded_file:
         sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
         if sel_plant:
            fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
-        plant_count=fil_df["Plant Name"].value_counts().reset_index()
+        plant_count=fil_df["Plant"].value_counts().reset_index()
         plant_count.columns = ["Plant", "Total Complaints"]
                         
         bar_fig = px.bar(
