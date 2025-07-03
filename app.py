@@ -60,7 +60,7 @@ elif st.session_state.page == "analyze":
         sel_state = st.multiselect("State Office", state_options, default="ALL")
 
     fil_df = ndf.copy()
-    if "ALL" in sel_state:
+    if "ALL" == sel_state[0]:
         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
     else :
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
