@@ -55,26 +55,21 @@ elif st.session_state.page == "analyze":
 
 #session_state for state
     if "sel_state" not in st.session_state:
-        st.session_state.sel_state=["ALL"]
+        st.session_state.sel_state=""
 #add dropdowns to filter data
     col1, col2, col3 = st.columns(3)
     with col1:
-        state_options = ["ALL"] + sorted(ndf["State Office"].dropna().unique())
-        sel_state = st.multiselect("State Office", state_options, default=st.session_state.sel_state, 
-        key="sel_state")
-        if "ALL" in st.session_state.sel_state and len(st.session_state.sel_state) > 1:
-            st.session_state.sel_state.remove("ALL")
-            st.rerun()
-        sel_state=st.session_state.sel_state
+        state_options =sorted(ndf["State Office"].dropna().unique())
+        sel_state = st.multiselect("State Office", state_options)
     fil_df = ndf.copy()
-    if "ALL" in sel_state:
-        fil_df=fil_df[fil_df["State Office"].isin(set_options)]
-    else :
+    if sel_state :
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         with col2:
             sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
             if sel_plant:
-               fil_df=fil_df[fil_df["Plant"].isin(sel_plant)]        
+               fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
+    else:
+        fil_df=fil_df[fil_df["State Office"].isin(set_options)]
     with col3:
         sel_leak = st.multiselect("Leak Type", sorted(fil_df["Leak Type"].dropna().unique()))
         if sel_leak:
