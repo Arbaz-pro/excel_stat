@@ -5,26 +5,18 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import os
 
-# Generate app
-
 st.set_page_config(page_title="Excel Data Statistical Analyzer", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "upload"
 
 # Go back button
-
 if st.session_state.page == "analyze":
     if st.button("Go Back"):
         st.session_state.page = "upload"
         st.session_state.df = None
-        
-# upload session
 
 if st.session_state.page == "upload":
     st.title("Upload Excel or CSV File")
-    
-# convert uploaded file into df
-    
     uploaded_file = st.file_uploader("Upload an Excel or CSV file", type=["csv", "xlsx"])
     if uploaded_file:
         file_ext = os.path.splitext(uploaded_file.name)[1]
@@ -32,7 +24,6 @@ if st.session_state.page == "upload":
             df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
         else:
             df = pd.read_excel(uploaded_file)
-# Rename columns
         df.rename(columns={
         df.columns[20]: "Leak Type",
         "Plant Name": "Plant",
@@ -42,47 +33,30 @@ if st.session_state.page == "upload":
         st.session_state.df = df
         st.session_state.page = "analyze"
         st.rerun()
-        
-# change session to analyse
-
 elif st.session_state.page == "analyze":
     df = st.session_state.df
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
     st.markdown("### 1906 Complaint Summary")
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
+    st.sidebar.header("Filter")
     set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
+    sel_state=st.sidebar.multiselect("State Office",set_options,default="ALL")
     fil_df=ndf.copy()
-
-#add dropdowns to filter data
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        
-        state_options =sorted(ndf["State Office"].dropna().unique())
-        sel_state = st.multiselect("State Office", state_options)
-        st.write("test",sel_state)
-    fil_df = ndf.copy()
-    if not sel_state:
-        fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
-        with col2:
-            sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
-            if sel_plant:
-               fil_df=fil_df[fil_df["Plant"].isin(sel_plant)] 
-    else:
+    if "ALL" in sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
-    with col3:
-        sel_leak = st.multiselect("Leak Type", sorted(fil_df["Leak Type"].dropna().unique()))
-        if sel_leak:
-            fil_df = fil_df[fil_df["Leak Type"].isin(sel_leak)]  
-            
-# add tabs to distribute data
+    else :
+        fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
+        sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
+        if sel_plant:
+           fil_df=fil_df[fil_df["Plant"].isin(sel_plant)]        
     
+    sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),)
+    if sel_leak:
+        fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
+      
     tab1,tab2,tab3=st.tabs(["Charts","Filter data","Group by"])
-
-# first tab for charts
+    
     with tab1:
-
-# logic to display data as per user selection
-        
         if "ALL" in sel_state:
             st.subheader("State Office–wise Total Complaints")
             state_counts = fil_df["State Office"].value_counts().reset_index()
@@ -99,9 +73,7 @@ elif st.session_state.page == "analyze":
             )
             bar_fig.update_layout(xaxis_tickangle=-45)
             st.plotly_chart(bar_fig, use_container_width=True)
-        else :
-            dist_count=fil_df["Distributor Name"].value_counts().reset_index()
-            dist_count.columns = ["Distributor Name", "Total Complaints"] 
+        else :  
             if sel_plant:
                 st.subheader("Leak–wise Total Complaints")
                 leak_c=fil_df["Leak Type"].value_counts().reset_index()
@@ -117,31 +89,6 @@ elif st.session_state.page == "analyze":
                 color_continuous_scale="blues"
                 )
                 bar_fig.update_layout(xaxis_tickangle=-45)
-                st.plotly_chart(bar_fig, use_container_width=True)
-
-                grouped = (
-                fil_df.groupby(["Distributor Name", "Leak Type"])
-                .size()
-                .reset_index(name="Total Complaints")
-                )
-                top_dists = (
-                grouped.groupby("Distributor Name")["Total Complaints"]
-                .sum()
-                .nlargest(15)
-                .index
-                )
-                grouped = grouped[grouped["Distributor Name"].isin(top_dists)]
-                color_palette = ["#1f77b4", "#4c72b0", "#6baed6", "#9ecae1", "#b2df8a", "#a6cee3", "#fdbf6f", "#c7e9c0", "#fb9a99", "#d9d9d9"]
-                bar_fig = px.bar(
-                grouped,
-                x="Distributor Name",
-                y="Total Complaints",
-                color="Leak Type",
-                title="Top 15 Distributors by Complaints, Split by Leak Type",
-                text_auto=True,
-                color_discrete_sequence=color_palette
-                )
-                bar_fig.update_layout(xaxis_tickangle=-45,barmode="stack")
                 st.plotly_chart(bar_fig, use_container_width=True)
             else:
                 st.subheader("Plant–wise Total Complaints")
@@ -159,19 +106,22 @@ elif st.session_state.page == "analyze":
                 )
                 bar_fig.update_layout(xaxis_tickangle=-45)
                 st.plotly_chart(bar_fig, use_container_width=True) 
-
-                bar_fig = px.bar(
-                dist_count[:15],
-                x="Distributor Name",
-                y="Total Complaints",
-                title="Top 15 Complaints by Distributors",
-                text="Total Complaints",
-                color="Total Complaints",
-                color_continuous_scale="blues"
-                )
-                bar_fig.update_layout(xaxis_tickangle=-45)
-                st.plotly_chart(bar_fig, use_container_width=True)
-                                               
+        
+        dist_count=fil_df["Distributor Name"].value_counts().reset_index()
+        dist_count.columns = ["Distributor Name", "Total Complaints"]
+        
+        bar_fig = px.bar(
+        dist_count[:15],
+        x="Distributor Name",
+        y="Total Complaints",
+        title="Top 15 Complaints by Distributors",
+        text="Total Complaints",
+        color="Total Complaints",
+        color_continuous_scale="blues"
+        )
+        bar_fig.update_layout(xaxis_tickangle=-45)
+        st.plotly_chart(bar_fig, use_container_width=True)
+        
     with tab2:
         st.dataframe(fil_df)
         
