@@ -53,16 +53,13 @@ elif st.session_state.page == "analyze":
     set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
     fil_df=ndf.copy()
 
-#session_state for state
-    if "sel_state" not in st.session_state:
-        st.session_state.sel_state=""
 #add dropdowns to filter data
     col1, col2, col3 = st.columns(3)
     with col1:
         state_options =sorted(ndf["State Office"].dropna().unique())
         sel_state = st.multiselect("State Office", state_options)
     fil_df = ndf.copy()
-    if sel_state :
+    if sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         with col2:
             sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
