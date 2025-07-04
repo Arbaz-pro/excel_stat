@@ -35,17 +35,13 @@ if st.session_state.page == "upload":
 elif st.session_state.page == "analyze":
     df = st.session_state.df
     ndf=df[["State Office","Plant","Distributor Code","Distributor Name","Territory","Leak Type",]]
-    st.sidebar.header("Filter")
-    set_options=["ALL"] + sorted(ndf["State Office"].dropna().unique())
-    sel_state=st.sidebar.multiselect("State Office",set_options,default="ALL")
     fil_df=ndf.copy()
 
 #add dropdowns to filter data
     col1, col2, col3 = st.columns(3)
     with col1:      
         state_options =sorted(ndf["State Office"].dropna().unique())
-        sel_state = st.multiselect("State Office", state_options)
-        st.write("test",sel_state)
+        sel_state = st.multiselect("State Office", state_options,default="ALL")
     fil_df = ndf.copy()
     if "ALL" in sel_state:
          fil_df=fil_df[fil_df["State Office"].isin(set_options)]
