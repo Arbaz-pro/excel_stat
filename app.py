@@ -42,7 +42,7 @@ elif st.session_state.page == "analyze":
     with col1: 
         state_options =["ALL"] + sorted(ndf["State Office"].dropna().unique())
         sel_state = st.multiselect("State Office",state_options)
-        if sel_state=[]:
+        if sel_state==[]:
             st.write("test",sel_state)
     fil_df = ndf.copy()
     if "ALL" in sel_state:
