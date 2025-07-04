@@ -138,21 +138,23 @@ elif st.session_state.page == "analyze":
                 )
                 bar_fig.update_layout(xaxis_tickangle=-45)
                 st.plotly_chart(bar_fig, use_container_width=True) 
+
+                dist_count=fil_df["Distributor Name"].value_counts().reset_index()
+                dist_count.columns = ["Distributor Name", "Total Complaints"]
+                
+                bar_fig = px.bar(
+                dist_count[:15],
+                x="Distributor Name",
+                y="Total Complaints",
+                title="Top 15 Complaints by Distributors",
+                text="Total Complaints",
+                color="Total Complaints",
+                color_continuous_scale="blues"
+                )
+                bar_fig.update_layout(xaxis_tickangle=-45)
+                st.plotly_chart(bar_fig, use_container_width=True)
         
-        dist_count=fil_df["Distributor Name"].value_counts().reset_index()
-        dist_count.columns = ["Distributor Name", "Total Complaints"]
         
-        bar_fig = px.bar(
-        dist_count[:15],
-        x="Distributor Name",
-        y="Total Complaints",
-        title="Top 15 Complaints by Distributors",
-        text="Total Complaints",
-        color="Total Complaints",
-        color_continuous_scale="blues"
-        )
-        bar_fig.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(bar_fig, use_container_width=True)
         
     with tab2:
         st.dataframe(fil_df)
