@@ -8,7 +8,7 @@ import os
 st.set_page_config(page_title="Excel Data Statistical Analyzer", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "upload"
-
+    st.write(dgsu)
 # Go back button
 if st.session_state.page == "analyze":
     if st.button("Go Back"):
