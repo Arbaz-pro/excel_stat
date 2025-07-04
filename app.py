@@ -65,7 +65,7 @@ elif st.session_state.page == "analyze":
         if "ALL" in st.session_state.sel_state and len(st.session_state.sel_state) > 1:
             st.session_state.sel_state.remove("ALL")
             st.rerun()]
-
+        sel_state=st.session_state.sel_state
     fil_df = ndf.copy()
     if "ALL" in sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
