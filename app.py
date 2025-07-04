@@ -62,16 +62,7 @@ elif st.session_state.page == "analyze":
             fil_df = fil_df[fil_df["Leak Type"].isin(sel_leak)]  
             
 # add tabs to distribute data
-    else :
-        fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
-        sel_plant=st.sidebar.multiselect("Plant",fil_df["Plant"].dropna().unique())
-        if sel_plant:
-           fil_df=fil_df[fil_df["Plant"].isin(sel_plant)]        
-
-    sel_leak=st.sidebar.multiselect("Leak Type",fil_df["Leak Type"].dropna().unique(),)
-    if sel_leak:
-        fil_df=fil_df[fil_df["Leak Type"].isin(sel_leak)] 
-      
+          
     tab1,tab2,tab3=st.tabs(["Charts","Filter data","Group by"])
 
 # first tab for charts
