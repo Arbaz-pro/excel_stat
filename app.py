@@ -40,7 +40,7 @@ elif st.session_state.page == "analyze":
 #add dropdowns to filter data
     col1, col2, col3 = st.columns(3)
     with col1: 
-        state_options =["ALL"] + sorted(ndf["State Office"].dropna().unique())
+        state_options =sorted(ndf["State Office"].dropna().unique())
         sel_state = st.multiselect("State Office",state_options)
     fil_df = ndf.copy()
     if sel_state==[]:
