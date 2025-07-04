@@ -44,7 +44,7 @@ elif st.session_state.page == "analyze":
         sel_state = st.multiselect("State Office",state_options,default="ALL")
     fil_df = ndf.copy()
     if "ALL" in sel_state:
-         fil_df=fil_df[fil_df["State Office"].isin(set_options)]
+         fil_df=fil_df[fil_df["State Office"].isin(state_options)]
     else:
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         with col2:
