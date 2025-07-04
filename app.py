@@ -64,7 +64,7 @@ elif st.session_state.page == "analyze":
         key="sel_state")
         if "ALL" in st.session_state.sel_state and len(st.session_state.sel_state) > 1:
             st.session_state.sel_state.remove("ALL")
-            st.rerun()]
+            st.rerun()
         sel_state=st.session_state.sel_state
     fil_df = ndf.copy()
     if "ALL" in sel_state:
