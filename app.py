@@ -59,7 +59,7 @@ elif st.session_state.page == "analyze":
         state_options =sorted(ndf["State Office"].dropna().unique())
         sel_state = st.multiselect("State Office", state_options)
     fil_df = ndf.copy()
-    if sel_state:
+    if not sel_state:
         fil_df=fil_df[fil_df["State Office"].isin(sel_state)]
         with col2:
             sel_plant = st.multiselect("Plant", sorted(fil_df["Plant"].dropna().unique()))
